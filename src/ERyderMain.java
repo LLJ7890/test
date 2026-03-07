@@ -1,7 +1,4 @@
-/**
- * Main class for Exercise #3.
- * Demonstrates object creation via both constructors and method invocation per spec.
- */
+
 public class ERyderMain {
     public static void main(String[] args) {
         // ✅ Step 1: Create object using DEFAULT constructor
