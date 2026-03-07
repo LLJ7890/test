@@ -1,5 +1,4 @@
-
-public class ERyde {
+public class ERyder {
 
     private int bikeID;
     private int batteryLevel;
@@ -7,7 +6,7 @@ public class ERyde {
     private double kmDriven;
 
 
-    public ERyde() {
+    public ERyder() {
         this.bikeID = 0;
         this.batteryLevel = 100;
         this.isAvailable = true;
@@ -15,7 +14,7 @@ public class ERyde {
     }
 
 
-    public ERyde(int bikeID, int batteryLevel, boolean isAvailable, double kmDriven) {
+    public ERyder(int bikeID, int batteryLevel, boolean isAvailable, double kmDriven) {
         this.bikeID = bikeID;
         setBatteryLevel(batteryLevel);
         this.isAvailable = isAvailable;
@@ -77,9 +76,8 @@ public class ERyde {
         if (kmDriven >= 0.0) {
             this.kmDriven = kmDriven;
         } else {
-            System.out.println("⚠️ Warning: Distance cannot be negative. Set to 0.0.");
+            System.out.println(" Warning: Distance cannot be negative. Set to 0.0.");
             this.kmDriven = 0.0;
         }
     }
 }
-

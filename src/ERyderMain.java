@@ -3,40 +3,24 @@
  * Demonstrates object creation via both constructors and method invocation per spec.
  */
 public class ERyderMain {
-    
-
-    private static final int TEST_BIKE_ID = 101;
-    private static final int TEST_BATTERY_LEVEL = 85;
-    private static final double TEST_KM_DRIVEN = 12.3;
-    private static final int INVALID_BATTERY_VALUE = 150;
-    
     public static void main(String[] args) {
-        try {
+        // ✅ Step 1: Create object using DEFAULT constructor
+        ERyder bike1 = new ERyder();
+        bike1.printBikeDetails(); // prints initialized defaults
 
-            System.out.println("=== Test 1: Default Constructor ===");
-            ERyde defaultBike = new ERyde();
-            defaultBike.printBikeDetails();
+        // ✅ Step 2: Create object using PARAMETERIZED constructor
+        // Example: bike ID=101, 85% battery, available, driven 12.3 km
+        ERyder bike2 = new ERyder(101, 85, true, 12.3);
 
+        // Then call ride() → should print "available" (85>0 & true)
+        bike2.ride();
 
-            System.out.println("=== Test 2: Parameterized Constructor ===");
-            ERyde parameterizedBike = new ERyde(TEST_BIKE_ID, TEST_BATTERY_LEVEL, true, TEST_KM_DRIVEN);
+        // Then call printBikeDetails() → shows current state
+        bike2.printBikeDetails();
 
-
-            parameterizedBike.ride();
-
-
-            parameterizedBike.printBikeDetails();
-
-
-            System.out.println("=== Test 3: Battery Validation ===");
-            System.out.println("→ Testing invalid battery (" + INVALID_BATTERY_VALUE + "%)...");
-            parameterizedBike.setBatteryLevel(INVALID_BATTERY_VALUE);
-            parameterizedBike.printBikeDetails();
-            
-        } catch (Exception e) {
-            System.err.println(" Error during testing: " + e.getMessage());
-            e.printStackTrace();
-        }
+        // 🔍 Bonus verification: test battery validation
+        System.out.println("→ Testing invalid battery (150%)...");
+        bike2.setBatteryLevel(150); // triggers warning & sets to 0
+        bike2.printBikeDetails();   // shows battery=0%
     }
 }
-
