@@ -1,6 +1,6 @@
 public class ERyder {
    private String bikeId;
-   private int batterer;
+   private int batteryLevel;
    private boolean isAvailable;
    private double kmDriven;
    private String company_Name="hello eRyder";
@@ -11,7 +11,7 @@ public class ERyder {
    private double total_Fare;
    private int totalUsageINMinutes;
    public ERyder(int batterylevel, String bikeId, boolean isAvailable, double kmDriven) {
-      this.batterer = batterylevel;
+      this.batteryLevel = batterylevel;
       this.bikeId = bikeId;
       this.isAvailable = isAvailable;
       this.kmDriven = kmDriven;
@@ -20,7 +20,7 @@ public class ERyder {
    }
 
    public ERyder(int batterylevel, String bikeId, boolean isAvailable, double kmDriven,String linked_Account, String linked_PhoneNumber) {
-      this.batterer = batterylevel;
+      this.batteryLevel = batterylevel;
       this.linked_Account = linked_Account;
       this.linked_PhoneNumber = linked_PhoneNumber;
       this.bikeId = bikeId;
@@ -28,8 +28,12 @@ public class ERyder {
       this.isAvailable = isAvailable;
    }
 
+   public ERyder(String bikeId) {
+      this(80, bikeId, true, 50.0);
+   }
+
    public int getBatterylevel() {
-      return batterer;
+      return batteryLevel;
    }
 
    public void setBatterylevel(int batterylevel) {
@@ -37,7 +41,7 @@ public class ERyder {
          System.out.println("Baterylevel must be between 0 and 100");
          return;
       }
-      this.batterer = batterylevel;
+      this.batteryLevel = batterylevel;
    }
 
    public String getBikeId() {
@@ -64,14 +68,14 @@ public class ERyder {
       this.kmDriven = kmDriven;
    }
    public void ride(){
-      if(isAvailable&& batterer >0&& batterer <100){
+      if(isAvailable&& batteryLevel >0&& batteryLevel<100){
          System.out.println("ID:"+bikeId+" this bike is available");
       }else{
          System.out.println("ID:"+bikeId+" this bike is not available");
       }
    }
    public void printBikeDetails(){
-      System.out.println("ID:"+bikeId+"\nbatterer:"+ batterer +"\nisavailable:"+isAvailable+"\nkmDriven:"+kmDriven+"km"+"\ncompany:"+company_Name);
+      System.out.println("ID:"+bikeId+"\nbatterer:"+ batteryLevel +"\nisavailable:"+isAvailable+"\nkmDriven:"+kmDriven+"km"+"\ncompany:"+company_Name);
    }
    public void printRideDetails(int usageInMinutes){
       System.out.println("account:"+linked_Account+"\nphone number:"+linked_PhoneNumber+"\nID:"+bikeId

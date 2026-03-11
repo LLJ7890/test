@@ -7,7 +7,7 @@ public class ERyderMain {
     private static final int RIDE_DURATION = 20;
 
    public static void main(String[] args) {
-        try {
+
             ERyder bike1 = new ERyder(DEFAULT_BATTERY_LEVEL, DEFAULT_BIKE_NAME, DEFAULT_IS_ELECTRIC, DEFAULT_BATTERY_CAPACITY);
             
             bike1.printBikeDetails();
@@ -15,10 +15,13 @@ public class ERyderMain {
             
             System.out.println("------");
             bike1.printRideDetails(RIDE_DURATION);
-            
-        } catch (Exception e) {
-            System.err.println("The program runs with an error：" + e.getMessage());
-            e.printStackTrace();
-        }
+
+           ERyder bike2 = new ERyder("bike2");
+           System.out.println("\n=== Bike2 Details ===");
+           bike2.printBikeDetails();
+
+
     }
 }
+
+
