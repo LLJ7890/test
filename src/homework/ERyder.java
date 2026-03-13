@@ -1,3 +1,5 @@
+package homework;
+
 public class ERyder {
    private String bikeId;
    private int batteryLevel;
@@ -10,13 +12,19 @@ public class ERyder {
    private final String linked_PhoneNumber;
    private double total_Fare;
    private int totalUsageINMinutes;
+
+   //有构造函数
    public ERyder(int batterylevel, String bikeId, boolean isAvailable, double kmDriven) {
       this.batteryLevel = batterylevel;
       this.bikeId = bikeId;
       this.isAvailable = isAvailable;
       this.kmDriven = kmDriven;
-      this.linked_Account = String.valueOf((int)(Math.random()*100000));
-      this.linked_PhoneNumber = "666"+ (int) (Math.random() * 10000000);
+      this.linked_Account = null;
+      this.linked_PhoneNumber = null;
+   }
+   //空构造函数
+   public ERyder() {
+      this(5, "bike_1", true, 50.0);
    }
 
    public ERyder(int batterylevel, String bikeId, boolean isAvailable, double kmDriven,String linked_Account, String linked_PhoneNumber) {
@@ -49,24 +57,30 @@ public class ERyder {
    }
 
    public void setBikeId(String bikeId) {
+
       this.bikeId = bikeId;
    }
 
    public boolean isAvailable() {
+
       return isAvailable;
    }
 
    public void setAvailable(boolean available) {
+
       isAvailable = available;
    }
 
    public double getKmDriven() {
+
       return kmDriven;
    }
 
    public void setKmDriven(double kmDriven) {
+
       this.kmDriven = kmDriven;
    }
+   //方法
    public void ride(){
       if(isAvailable&& batteryLevel >0&& batteryLevel<100){
          System.out.println("ID:"+bikeId+" this bike is available");
@@ -83,6 +97,7 @@ public class ERyder {
       );
    }
    private double calculateFare(int usageInMinutes){
+
       return total_Fare=base_Fare+per_Minute_Fare*usageInMinutes;
    }
 }
