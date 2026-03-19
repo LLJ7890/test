@@ -1,5 +1,7 @@
 package homework;
 
+import java.security.PublicKey;
+
 public class ERyderMain {
 
     private static final int DEFAULT_BATTERY_LEVEL = 90;
@@ -34,8 +36,6 @@ public class ERyderMain {
         Feedback userFeedback = new Feedback("Jo", "Doe", "qq.com");
 
         userFeedback.analyseFeedback(false, sent1, sent2, sent3, sent4, sent5);
-
-        System.out.println(userFeedback);
     }
 }
 
