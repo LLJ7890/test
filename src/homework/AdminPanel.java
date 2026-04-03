@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class AdminPanel {
     private UserService userService = new UserService();
     private RentalService rentalService = new RentalService();
+    private BikeService bikeService = new BikeService();
 
     public void userManagementOptions() {
         System.out.println("Welcome to E-Ryder Admininstrator Panel. What do you want to do?\n" +
@@ -13,7 +14,9 @@ public class AdminPanel {
                 "3. View all users\n" +
                 "4. View a specific user\n" +
                 "5. Demo the Bike Rental System\n" +
-                "6. Exit");
+                "6. Exit\n" +
+                "7. View System Logs\n" +
+                "8. Manage Pending Bike Requests");
         Scanner sc = new Scanner(System.in);
         int choice = sc.nextInt();
         switch (choice) {
@@ -34,8 +37,63 @@ public class AdminPanel {
                 break;
             case 6:
                 break;
+            case 7:
+                viewSystemLogs();
+                break;
+            case 8:
+                managePendingRequests();
+                break;
             default:
                 System.out.println("Invalid choice. Please try again.");
+        }
+    }
+
+    private void viewSystemLogs() {
+        System.out.println("=== System Logs ===");
+        for (ERyderLog log : rentalService.getLogStack()) {
+            System.out.println(log);
+        }
+    }
+
+    private void managePendingRequests() {
+        System.out.println("Manage Pending Bike Requests:\n" +
+                "1. View Queue\n" +
+                "2. Update Queue\n" +
+                "3. Exit");
+        Scanner sc = new Scanner(System.in);
+        int choice = sc.nextInt();
+        
+        switch (choice) {
+            case 1:
+                viewQueue();
+                break;
+            case 2:
+                updateQueue();
+                break;
+            case 3:
+                break;
+            default:
+                System.out.println("Invalid choice.");
+        }
+    }
+
+    private void viewQueue() {
+        System.out.println("=== Pending Bike Requests ===");
+        if (bikeService.bikeRequest.isEmpty()) {
+            System.out.println("No pending requests.");
+        } else {
+            for (BikeRequest request : bikeService.bikeRequest) {
+                System.out.println(request);
+            }
+        }
+    }
+
+    private void updateQueue() {
+        if (!bikeService.bikeRequest.isEmpty()) {
+            BikeRequest removedRequest = bikeService.bikeRequest.poll();
+            System.out.println("Removed request: " + removedRequest);
+        } else {
+            System.out.println("Queue is empty. Nothing to remove.");
         }
     }
 
@@ -56,7 +114,6 @@ public class AdminPanel {
 
         System.out.println("Simulating the analysis of the rental request.");
 
-        BikeService bikeService = new BikeService();
         String bikeID = analyseRequest(isRegisteredUser, emailAddress, location, bikeService);
 
         if (bikeID == null) {
