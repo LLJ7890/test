@@ -96,5 +96,12 @@ public class RegisteredUsers {
         this.lastThreeTrips = lastThreeTrips;
     }
 
+    public double calculateFare(double baseFare) {
+        return baseFare;
+    }
+    public void displayUserType(){
+        System.out.println("Regular User");
+    }
+
 
 }

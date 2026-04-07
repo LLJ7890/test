@@ -1,5 +1,6 @@
 package homework;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class AdminPanel {
@@ -21,7 +22,7 @@ public class AdminPanel {
         int choice = sc.nextInt();
         switch (choice) {
             case 1:
-                userService.addNewUsers();
+                List<RegisteredUsers> users = userService.addNewUsers();
                 break;
             case 2:
                 userService.viewRegisteredUsers();
@@ -114,21 +115,29 @@ public class AdminPanel {
 
         System.out.println("Simulating the analysis of the rental request.");
 
-        String bikeID = analyseRequest(isRegisteredUser, emailAddress, location, bikeService);
+        RegisteredUsers user = analyseRequest(isRegisteredUser, emailAddress, location, bikeService);
 
-        if (bikeID == null) {
+        if (user == null) {
             scanner.close();
             return;
         }
 
+        String bikeID = bikeService.findAvailableBike(location);
+        if (bikeID == null) {
+            System.out.println("Sorry, no bikes are available at the location you requested. Please try again later.");
+            scanner.close();
+            return;
+        }
+
+        System.out.println("A bike is available at the location you requested.");
         System.out.println("Simulating e-bike reservation");
-        rentalService.startRental(bikeID, emailAddress);
+        rentalService.startRental(bikeID, user);
 
         System.out.println("Displaying the active rentals");
         rentalService.viewActiveRentals();
 
         System.out.println("Simulating the end of the trip");
-        rentalService.endRental(bikeID);
+        rentalService.endRental(bikeID, user);
 
         System.out.println("Displaying the active rentals after trip end");
         rentalService.viewActiveRentals();
@@ -136,23 +145,21 @@ public class AdminPanel {
         scanner.close();
     }
 
-    private String analyseRequest(boolean isRegisteredUser, String emailAddress,
+    private RegisteredUsers analyseRequest(boolean isRegisteredUser, String emailAddress,
                                   String location, BikeService bikeService) {
         if (isRegisteredUser) {
             System.out.println("Welcome back, " + emailAddress + "!");
+            for (RegisteredUsers user : userService.getRegisteredUsers()) {
+                if (user.getEmailAddress().equals(emailAddress)) {
+                    return user;
+                }
+            }
         } else {
             System.out.println("You're not our registered user. Please consider registering.");
             UserRegistration userRegistration = new UserRegistration();
             userRegistration.registration();
         }
 
-        String bikeID = bikeService.findAvailableBike(location);
-        if (bikeID == null) {
-            System.out.println("Sorry, no bikes are available at the location you requested. Please try again later.");
-        } else {
-            System.out.println("A bike is available at the location you requested.");
-        }
-
-        return bikeID;
+        return null;
     }
 }

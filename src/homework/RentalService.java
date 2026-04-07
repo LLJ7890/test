@@ -11,21 +11,23 @@ import java.util.Stack;
 
 public class RentalService {
 
+    private static final double BASE_FARE = 3.0;
+
     private LinkedList<ActiveRental> activeRentalsList = new LinkedList<>();
     private BikeService bikeService = new BikeService();
     private Stack<ERyderLog> logStack = new Stack<>();
 
-    public void startRental(String bikeID, String userEmail) {
+    public void startRental(String bikeID, RegisteredUsers user) {
         if (bikeID != null) {
             LocalDateTime startTime = LocalDateTime.now();
-            bikeService.reserveBike(bikeID, userEmail, startTime, activeRentalsList);
+            bikeService.reserveBike(bikeID, user.getEmailAddress(), startTime, activeRentalsList);
             
             ERyderLog log = new ERyderLog(bikeID, "Trip started", startTime);
             logStack.push(log);
         }
     }
 
-    public void endRental(String bikeID) {
+    public void endRental(String bikeID, RegisteredUsers user) {
         Iterator<ActiveRental> iterator = activeRentalsList.iterator();
         while (iterator.hasNext()) {
             ActiveRental rental = iterator.next();
@@ -33,6 +35,9 @@ public class RentalService {
                 LocalDateTime endTime = LocalDateTime.now();
                 ERyderLog log = new ERyderLog(bikeID, "Trip ended", endTime);
                 logStack.push(log);
+                
+                double fare = user.calculateFare(BASE_FARE);
+                System.out.println("Trip fare: $" + fare);
                 
                 iterator.remove();
                 break;

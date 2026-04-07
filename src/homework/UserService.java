@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class UserService {
     private List<RegisteredUsers> registeredUsers = new ArrayList<>();
 
-    public void addNewUsers() {
+    public List<RegisteredUsers> addNewUsers() {
         Scanner sc = new Scanner(System.in);
 
         System.out.print("How many users the admin would like to add? ");
@@ -68,9 +68,14 @@ public class UserService {
                 lastThreeTrips[j] = tripDetails.toString();
             }
 
-            RegisteredUsers newUser = new RegisteredUsers(
-                    fullName, emailAddress, dateOfBirth, cardNumber,
-                    cardProvider, cardExpiryDate, cvv, userType, lastThreeTrips);
+            RegisteredUsers newUser;
+            if (userType.equalsIgnoreCase("VIP User")) {
+                newUser = new VIPUser(fullName, emailAddress, dateOfBirth, cardNumber,
+                        cardProvider, cardExpiryDate, cvv, userType, lastThreeTrips);
+            } else {
+                newUser = new RegularUser(fullName, emailAddress, dateOfBirth, cardNumber,
+                        cardProvider, cardExpiryDate, cvv, userType, lastThreeTrips);
+            }
             registeredUsers.add(newUser);
 
             System.out.println("\nUser " + (i + 1) + " added successfully!");
@@ -78,6 +83,8 @@ public class UserService {
 
         System.out.println("\nAll " + numberOfUsers + " user(s) have been added to the system.");
         sc.close();
+        
+        return registeredUsers;
     }
 
     public void viewRegisteredUsers() {

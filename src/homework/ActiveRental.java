@@ -6,11 +6,13 @@ public class ActiveRental {
     private String bikeID;
     private String userEmail;
     private LocalDateTime tripStartTime;
+    private RegisteredUsers user;
 
-    public ActiveRental(String bikeID, String userEmail, LocalDateTime tripStartTime) {
+    public ActiveRental(String bikeID, String userEmail, LocalDateTime tripStartTime, RegisteredUsers user) {
         this.bikeID = bikeID;
         this.userEmail = userEmail;
         this.tripStartTime = tripStartTime;
+        this.user = user;
     }
 
     public String getBikeID() {
@@ -35,6 +37,14 @@ public class ActiveRental {
 
     public void setTripStartTime(LocalDateTime tripStartTime) {
         this.tripStartTime = tripStartTime;
+    }
+
+    public RegisteredUsers getUser() {
+        return user;
+    }
+
+    public void setUser(RegisteredUsers user) {
+        this.user = user;
     }
 
     public String toString() {
